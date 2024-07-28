@@ -11,6 +11,7 @@ import { prisma } from "@/lib/db";
 
 export async function POST(req: Request, res: Response) {
   try {
+    console.log("Starting POST request");
     // const session = await getAuthSession();
     // if (!session?.user) {
     //   return new NextResponse("unauthorised", { status: 401 });
@@ -30,17 +31,21 @@ export async function POST(req: Request, res: Response) {
       }[];
     }[];
 
+    console.log("About to call strict_output for output_units");
+
     let output_units: outputUnits = await strict_output(
       "You are an AI capable of curating course content, coming up with relevant chapter titles.",
       new Array(units.length).fill(
-        `It is your job to create a course about ${title}. The user has requested to create chapters for each of the units. Then, for each chapter, provide a youtube search query that can be used to find an informative educational video for each chapter.`
+        `It is your job to create a course about ${title}. The user has requested to create only 2 chapters for each of the units. Then, for each chapter, provide a youtube search query that can be used to find an informative educational video for each chapter.`
       ),
       {
         title: "title of the unit",
         chapters:
-          "an array of chapters, each chapter should have a youtube_search_query and a chapter_title key in the JSON object",
+          "an array of only 2 chapters, each chapter should have a youtube_search_query and a chapter_title key in the JSON object",
       }
     );
+
+    console.log("Received output_units:", output_units);
 
     const imageSearchTerm = await strict_output(
       "you are an AI capable of finding the most relevant image for a course",

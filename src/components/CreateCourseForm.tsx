@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { z } from "zod";
 import { createChaptersSchema } from "@/validators/course";
@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 type Input = z.infer<typeof createChaptersSchema>;
 
 const CreateCourseForm = () => {
+  const [isLoading, setIsLoading] = useState(false); 
   const router = useRouter();
   const { toast } = useToast();
   const { mutate: createChapters} = useMutation({
@@ -49,8 +50,11 @@ const CreateCourseForm = () => {
       });
       return;
     }
+    setIsLoading(true);
+
     createChapters(data, {
       onSuccess: ({ course_id }) => {
+        setIsLoading(false);
         toast({
           title: "Success",
           description: "Course created successfully",
@@ -59,6 +63,7 @@ const CreateCourseForm = () => {
         console.log(data)
       },
       onError: (error) => {
+        setIsLoading(false);
         console.error(error);
         toast({
           title: "Error",
@@ -162,12 +167,12 @@ const CreateCourseForm = () => {
             <Separator className="flex-[1]" />
           </div>
           <Button
-            // disabled={isPending}
+            disabled={isLoading}
             type="submit"
-            className="w-full mt-6"
+            className="w-full mt-6 bg-gradient-to-r from-purple-800 to-blue-600"
             size="lg"
           >
-            Lets Go!
+            {isLoading ? "Generating..." : "Generate!"}
           </Button>
         </form>
       </Form>

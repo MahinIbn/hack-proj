@@ -23,7 +23,7 @@ export async function getTranscript(videoId: string) {
   try {
     let transcript_arr = await YoutubeTranscript.fetchTranscript(videoId, {
       lang: "en",
-      country: "EN",
+      
     });
     let transcript = "";
     for (let t of transcript_arr) {

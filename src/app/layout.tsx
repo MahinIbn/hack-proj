@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={jetbrainsMono.className}>
+      <body className={`${jetbrainsMono.className} antialiased min-h-screen pt-16`}>
         <Provider>
           <Navbar/>
           {children}

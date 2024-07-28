@@ -4,6 +4,7 @@ import { OpenAI } from "openai";
 const openai = new OpenAI({
     apiKey: process.env.AI71_API_KEY,
     baseURL: process.env.AI71_BASE_URL
+    // apiKey: process.env.OPENAI_API_KEY
   });
 
 interface OutputFormat {
@@ -17,9 +18,10 @@ export async function strict_output(
   default_category: string = "",
   output_value_only: boolean = false,
   model: string = "tiiuae/falcon-180b-chat",
+  // model: string = "gpt-4o-mini",
   temperature: number = 1,
   num_tries: number = 3,
-  verbose: boolean = false
+  verbose: boolean = false,
 ) {
   // if the user input is in a list, we also process the output as a list of json
   const list_input: boolean = Array.isArray(user_prompt);
@@ -53,6 +55,7 @@ export async function strict_output(
     }
 
     // Use OpenAI to get a response
+    console.log("Sending request to OpenAI API...");
     const response = await openai.chat.completions.create({
       temperature: temperature,
       model: model,
@@ -64,12 +67,19 @@ export async function strict_output(
         { role: "user", content: user_prompt.toString() },
       ],
     });
+    console.log("Received response from OpenAI API:", response);
+
 
     let res: string =
       response.choices[0].message?.content?.replace(/'/g, '"') ?? "";
 
+    console.log("Parsed response:", res);
+
+
     // ensure that we don't replace away apostrophes in text
     res = res.replace(/(\w)"(\w)/g, "$1'$2");
+
+    console.log(res)
 
     if (verbose) {
       console.log(
@@ -79,7 +89,7 @@ export async function strict_output(
       console.log("\nUser prompt:", user_prompt);
       console.log("\nGPT response:", res);
     }
-
+    
     // try-catch block to ensure output format is adhered to
     try {
       let output: any = JSON.parse(res);
