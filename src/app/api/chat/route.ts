@@ -3,12 +3,16 @@ import { Message} from "ai";
 import { getContext } from "@/lib/context";
 import { NextResponse } from "next/server";
 import { prisma } from '@/lib/db';
+import { OpenAI } from "openai";
 export const runtime = "edge";
 
-const config = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+
+
+const openai = new OpenAI({
+  // apiKey: process.env.AI71_API_KEY,
+  // baseURL: process.env.AI71_BASE_URL
+  apiKey: process.env.OPENAI_API_KEY
 });
-const openai = new OpenAIApi(config);
 
 export async function POST(req: Request) {
   try {
@@ -42,7 +46,7 @@ export async function POST(req: Request) {
       `,
     };
 
-    const response = await openai.createChatCompletion({
+    const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         prompt,
