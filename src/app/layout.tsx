@@ -3,8 +3,8 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { Provider } from "@/components/Providers";
-import { Toast } from "@/components/ui/toast";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "react-hot-toast";
+// import { Toaster } from "@/components/ui/toaster";
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 

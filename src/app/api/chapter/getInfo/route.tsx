@@ -34,14 +34,18 @@ export async function POST(req: Request, res: Response) {
     }
     const videoId = await searchYoutube(chapter.youtubeSearchQuery);
     let transcript = await getTranscript(videoId);
-    let maxLength = 200;
+    let maxLength = 100;
     transcript = transcript.split(" ").slice(0, maxLength).join(" ");
 
     const { summary }: { summary: string } = await strict_output(
-      "You are an AI capable of summarising a youtube transcript",
-      "summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.\n" +
-        transcript,
-      { summary: "summary of the transcript" }
+      "You are an AI expert in concise and relevant content summarization.",
+      `Summarize the following YouTube transcript in 130 words or less. 
+       Focus only on the main topic. 
+       Exclude any mentions of sponsors, introductions, or unrelated content.
+       Provide your summary directly, without any preamble.
+       Format your response as a JSON object with a single 'summary' key.
+       Transcript: ${transcript}`,
+      { summary: "A concise, topic-focused summary of the transcript in 130 words or less" }
     );
 
     const questions = await getQuestionsFromTranscript(

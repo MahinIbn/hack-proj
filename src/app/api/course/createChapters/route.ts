@@ -34,14 +34,18 @@ export async function POST(req: Request, res: Response) {
     console.log("About to call strict_output for output_units");
 
     let output_units: outputUnits = await strict_output(
-      "You are an AI capable of curating course content, coming up with relevant chapter titles.",
-      new Array(units.length).fill(
-        `It is your job to create a course about ${title}. The user has requested to create only 2 chapters for each of the units. Then, for each chapter, provide a youtube search query that can be used to find an informative educational video for each chapter.`
+      "You are an AI course content curator. Your task is to create detailed chapter outlines with relevant titles and YouTube search queries.",
+      units.map(unit => 
+        `Create a structured outline for the unit "${unit}" in the course "${title}, with 'title' and as key for unit title". 
+        1. Provide exactly 2 chapters for this unit. 
+        2. For each chapter, include:
+           - A clear, concise chapter title 
+           - A specific YouTube search query to find an educational video on the chapter's topic
+        Format your response as a JSON object. Do not include any explanatory text outside the JSON structure.`
       ),
       {
-        title: "title of the unit",
-        chapters:
-          "an array of only 2 chapters, each chapter should have a youtube_search_query and a chapter_title key in the JSON object",
+        title: "The exact title of the unit as provided",
+        chapters: "An array containing exactly 2 chapter objects. Each chapter object must have 'youtube_search_query' and 'chapter_title' as keys",
       }
     );
 
@@ -49,7 +53,7 @@ export async function POST(req: Request, res: Response) {
 
     const imageSearchTerm = await strict_output(
       "you are an AI capable of finding the most relevant image for a course",
-      `Please provide a good image search term for the title of a course about ${title}. This search term will be fed into the unsplash API.`,
+      `Please provide a good image search term for the title of a course about ${title}. This search term will be fed into the unsplash API. Provide your output as the JSON object only and dont include any coversational words in your response.`,
       {
         image_search_term: "a good search term for the title of the course",
       }

@@ -117,8 +117,8 @@ const CreateCourseForm = () => {
                     render={({ field }) => {
                       return (
                         <FormItem className="flex flex-col items-start w-full sm:items-center sm:flex-row">
-                          <FormLabel className="flex-[1] text-xl">
-                            Unit {index + 1}
+                          <FormLabel className="flex-[1] text-l">
+                            Section {index + 1}
                           </FormLabel>
                           <FormControl className="flex-[6]">
                             <Input
@@ -147,7 +147,7 @@ const CreateCourseForm = () => {
                 }}
               >
                 <Plus className="w-4 h-4 ml-2 text-green-500" />
-                Add Unit
+                Add Section
                 
               </Button>
 
@@ -160,7 +160,7 @@ const CreateCourseForm = () => {
                 }}
               >
                 <Trash className="w-4 h-4 ml-2 text-red-500" />
-                Remove Unit
+                Remove Section
                 
               </Button>
             </div>

@@ -47,16 +47,16 @@ export async function getQuestionsFromTranscript(
     option3: string;
   };
   const questions: Question[] = await strict_output(
-    "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words",
+    "You are an AI specialized in generating MCQ questions and answers. Each answer must not exceed 10 words. The response should be in JSON format only, with no conversational text.",
     new Array(5).fill(
-      `You are to generate a random hard mcq question about ${course_title} with context of the following transcript: ${transcript}`
+      `Generate a random hard MCQ questions about ${course_title} based on the following transcript: ${transcript}. Output only the JSON object without any conversational text.`
     ),
     {
-      question: "question",
-      answer: "answer with max length of 15 words",
-      option1: "option1 with max length of 15 words",
-      option2: "option2 with max length of 15 words",
-      option3: "option3 with max length of 15 words",
+      question: "Question with a maximum length of 15 words",
+      answer: "answer with max length of 10 words (correct option)",
+      option1: "option1 with max length of 10 words (wrong option)",
+      option2: "option2 with max length of 10 words (wrong option)",
+      option3: "option3 with max length of 10 words (wrong option)",
     }
   );
   return questions;

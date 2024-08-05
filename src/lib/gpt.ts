@@ -2,9 +2,9 @@ import { OpenAI } from "openai";
 
 
 const openai = new OpenAI({
-    apiKey: process.env.AI71_API_KEY,
-    baseURL: process.env.AI71_BASE_URL
-    // apiKey: process.env.OPENAI_API_KEY
+    // apiKey: process.env.AI71_API_KEY,
+    // baseURL: process.env.AI71_BASE_URL
+    apiKey: process.env.OPENAI_API_KEY
   });
 
 interface OutputFormat {
@@ -17,10 +17,10 @@ export async function strict_output(
   output_format: OutputFormat,
   default_category: string = "",
   output_value_only: boolean = false,
-  model: string = "tiiuae/falcon-180b-chat",
-  // model: string = "gpt-4o-mini",
+  // model: string = "tiiuae/falcon-180b-chat",
+  model: string = "gpt-4o-mini",
   temperature: number = 1,
-  num_tries: number = 3,
+  num_tries: number = 7,
   verbose: boolean = false,
 ) {
   // if the user input is in a list, we also process the output as a list of json
@@ -147,7 +147,7 @@ export async function strict_output(
     } catch (e) {
       error_msg = `\n\nResult: ${res}\n\nError message: ${e}`;
       console.log("An exception occurred:", e);
-      console.log("Current invalid json format ", res);
+      console.log("Current invalid json format:", res);
     }
   }
 
