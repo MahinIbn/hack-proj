@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { Plus, Trash } from "lucide-react";
+import { Link, Plus, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -173,6 +173,9 @@ const CreateCourseForm = () => {
             size="lg"
           >
             {isLoading ? "Generating..." : "Generate!"}
+          </Button>
+          <Button className="w-full mt-6 bg-yellow-100 text-black">
+            Please visit http://159.65.212.108 if Vercel times out.
           </Button>
         </form>
       </Form>
