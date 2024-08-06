@@ -20,7 +20,7 @@ export async function strict_output(
   // model: string = "tiiuae/falcon-180b-chat",
   model: string = "gpt-4o-mini",
   temperature: number = 1,
-  num_tries: number = 7,
+  num_tries: number = 5,
   verbose: boolean = false,
 ) {
   // if the user input is in a list, we also process the output as a list of json

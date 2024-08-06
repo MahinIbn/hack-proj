@@ -8,12 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { Link, Plus, Trash } from "lucide-react";
+import { Link2, Plus, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { toast, useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 // import SubscriptionAction from "./SubscriptionAction";
 
 // type Props = { isPro: boolean };
@@ -174,9 +175,15 @@ const CreateCourseForm = () => {
           >
             {isLoading ? "Generating..." : "Generate!"}
           </Button>
-          <Button className="w-full mt-6 bg-yellow-100 text-black">
-            Please visit http://159.65.212.108 if Vercel times out.
-          </Button>
+          
+          <a
+            className="block h-full w-full mt-6 bg-yellow-100 text-black"
+            href="http://159.65.212.108"
+          >
+            Please use the app at <span className="text-blue-500">http://159.65.212.108</span> if you don't receive your response due to Vercel timing out.
+          </a>
+
+          
         </form>
       </Form>
     </div>

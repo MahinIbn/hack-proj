@@ -100,6 +100,12 @@ const ConfirmChapters = ({ course }: Props) => {
         </div>
         <Separator className="flex-[1]" />
       </div>
+      <a
+            className="block h-full w-full mt-6 bg-yellow-100 text-black"
+            href="http://159.65.212.108"
+          >
+            Please use the app at <span className="text-blue-500">http://159.65.212.108</span> if you don't receive your response due to Vercel timing out.
+      </a>
     </div>
   );
 };
